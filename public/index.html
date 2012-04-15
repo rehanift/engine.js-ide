@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Engine.js IDE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="./bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="./css/application.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  </head>
+
+  <body>
+
+    <label>Code<textarea name="code" id="code"></textarea></label>
+    <label>Context<textarea name="context" id="context"></textarea></label>
+    <label>Locals<textarea name="locals" id="locals"></textarea></label>
+    <label>Results<textarea name="results" id="results"></textarea></label>
+
+    <input type="button" name="run-code" value="Run" id="run_code"/>
+
+    <script>
+      $(document).ready(function(){
+	  $("#run_code").click(function(){
+              var code = $("#code").val();
+              var context = $("#context").val();
+              var locals = $("#locals").val();
+
+              $.post("/run", {
+		  code: code,
+		  context: context,
+		  locals: locals
+              }, function(data){
+		  $("#results").val(data);
+	      });
+	  });
+      });
+    </script>
+
+  </body>
+</html>
